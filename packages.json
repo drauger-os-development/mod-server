@@ -2,8 +2,8 @@
   "0": {
     "Name": "Mod Pack Documentation",
     "submitter": "Batcastle",
-    "meta_file": "https://raw.githubusercontent.com/drauger-os-development/mod-docs/master/meta.json",
+    "meta_file": "https://raw.githubusercontent.com/drauger-os-development/mod-docs/v0.0.2/meta.json",
     "joined": 1623351659,
-    "download_url": "https://github.com/drauger-os-development/mod-docs/releases/download/v0.0.1/mod-docs.mod_pak"
+    "download_url": "https://github.com/drauger-os-development/mod-docs/releases/download/v0.0.2/mod-docs.mod_pak"
   }
 }
