@@ -1,10 +1,9 @@
-#!/bin/bash
-
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#  uninstall.sh
+#  remove_file.py
 #
-#  Copyright 2021 Thomas Castleman <contact@draugeros.org>
+#  Copyright 2026 Thomas Castleman <batcastle@draugeros.org>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -22,15 +21,26 @@
 #  MA 02110-1301, USA.
 #
 #
-echo "Removing files and disabling. . ."
-# Stop and disable start up service
-sudo systemctl stop store_backend
-sudo systemctl disable store_backend
-# remove system files
-sudo rm -fv /etc/nginx/sites-available/store_backend.conf /etc/nginx/sites-enabled/store_backend.conf /etc/systemd/system/store_backend.service
-# restart nginx to take the site offline
-sudo systemctl restart nginx
-# remove commit tag
-if [ -f .git_commit_number ]; then
-    rm .git_commit_number
-fi
+import os
+import subprocess as subproc
+import sys
+import json
+
+
+with open("mod_server_settings.json", "r") as file:
+    settings = json.load(file)
+
+
+if len(sys.argv) == 1:
+    print("No files passed!")
+    sys.exit(1)
+
+files = sys.argv[1:]
+
+for each in files:
+    location = f"{settings["base"]}/mods/pool/{each[0]}"
+    os.remove(f"{location}/{each}")
+    if os.listdir(location) == []:
+        os.rmdir(location)
+
+subproc.check_call(["./sign_files.py"])

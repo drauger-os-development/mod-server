@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#  wsgi.py
+#  generate_file_system.py
 #
-#  Copyright 2021 Thomas Castleman <contact@draugeros.org>
+#  Copyright 2025 Thomas Castleman <batcastle@draugeros.org>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -21,8 +21,35 @@
 #  MA 02110-1301, USA.
 #
 #
-"""WSGI Loader"""
-from store import app
+import os
+import sys
+import json
 
-if __name__ == "__main__":
-    app.run()
+if "--base" in sys.argv:
+    index = sys.argv.index("--base")
+    try:
+        path = sys.argv[index + 1]
+    except IndexError:
+        print("No path specified with --base")
+        sys.exit(1)
+else:
+    path = "."
+
+try:
+    os.mkdir(f"{path}/mods")
+except FileExistsError:
+    pass
+
+try:
+    os.mkdir(f"{path}/mods/pool")
+except FileExistsError:
+    pass
+
+settings = {
+        "base": path,
+        "create_sig_file": True,
+        "create_hash_file": True
+    }
+
+with open("mod_server_settings.json", "w") as file:
+    json.dump(settings, file, indent=2)

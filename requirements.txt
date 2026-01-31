@@ -1,4 +1,0 @@
-python3-flask
-nginx-full
-uwsgi
-uwsgi-plugin-python3
