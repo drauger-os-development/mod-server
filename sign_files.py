@@ -38,7 +38,7 @@ for each in os.listdir(f"{top_level}/mods/pool"):
     for each1 in os.listdir(f"{top_level}/mods/pool/{each}"):
         path_internal = f"{top_level}/mods/pool/{each}/{each1}"
         path_external = f"mods/pool/{each}/{each1}"
-        with open(path_internal0 "rb") as file:
+        with open(path_internal, "rb") as file:
             data = hash.sha3_512(file.read())
         files[path_external] = data.hexdigest()
 
