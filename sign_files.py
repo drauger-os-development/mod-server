@@ -36,10 +36,11 @@ if top_level[-1] == "/":
 files = {}
 for each in os.listdir(f"{top_level}/mods/pool"):
     for each1 in os.listdir(f"{top_level}/mods/pool/{each}"):
-        path = f"{top_level}/mods/pool/{each}/{each1}"
-        with open(path, "rb") as file:
+        path_internal = f"{top_level}/mods/pool/{each}/{each1}"
+        path_external = f"mods/pool/{each}/{each1}"
+        with open(path_internal0 "rb") as file:
             data = hash.sha3_512(file.read())
-        files[path] = data.hexdigest()
+        files[path_external] = data.hexdigest()
 
 output = {"hash_algo": "sha3_512", "files": files}
 
