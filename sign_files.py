@@ -31,6 +31,8 @@ with open("mod_server_settings.json", "r") as file:
     settings = json.load(file)
 
 top_level = settings["base"]
+if top_level[-1] == "/":
+    top_level = top_level[:-1]
 files = {}
 for each in os.listdir(f"{top_level}/mods/pool"):
     for each1 in os.listdir(f"{top_level}/mods/pool/{each}"):

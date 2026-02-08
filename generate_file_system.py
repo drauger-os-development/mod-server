@@ -26,13 +26,14 @@ import sys
 import json
 
 if "--base" in sys.argv:
-    index = sys.argv.index("--base")
     try:
+        index = sys.argv.index("--base")
         path = sys.argv[index + 1]
-    except IndexError:
+    except IndexError, ValueError:
         print("No path specified with --base")
         sys.exit(1)
 else:
+    print("Base directory not passed via --base, assuming base directory is current directory.")
     path = "."
 
 try:
@@ -45,6 +46,8 @@ try:
 except FileExistsError:
     pass
 
+print("Directory structure successfully created!")
+
 settings = {
         "base": path,
         "create_sig_file": True,
@@ -53,3 +56,5 @@ settings = {
 
 with open("mod_server_settings.json", "w") as file:
     json.dump(settings, file, indent=2)
+
+print("Settings file successfully created!")
