@@ -24,6 +24,7 @@
 import os
 import sys
 import json
+import subprocess as subproc
 
 if "--base" in sys.argv:
     try:
@@ -35,6 +36,23 @@ if "--base" in sys.argv:
 else:
     print("Base directory not passed via --base, assuming base directory is current directory.")
     path = "."
+
+if "--key" in sys.argv:
+    try:
+        index = sys.argv.index("--key")
+        key = sys.argv[index + 1]
+    except IndexError, ValueError:
+        print("No key specified with --key")
+        sys.exit(1)
+else:
+    print("No key specified. Please specify a key with the --key argument.")
+    sys.exit(1)
+
+
+data = subproc.check_output(["gpg", "--list-keys", "--with-colons"]).decode()
+if key not in data:
+    print("Key provided is not valid. Please try a new key.")
+    sys.exit(1)
 
 try:
     os.mkdir(f"{path}/mods")
@@ -51,7 +69,8 @@ print("Directory structure successfully created!")
 settings = {
         "base": path,
         "create_sig_file": True,
-        "create_hash_file": True
+        "create_hash_file": True,
+        "key": key
     }
 
 with open("mod_server_settings.json", "w") as file:
