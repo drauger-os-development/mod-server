@@ -30,7 +30,7 @@ if "--base" in sys.argv:
     try:
         index = sys.argv.index("--base")
         path = sys.argv[index + 1]
-    except IndexError, ValueError:
+    except (IndexError, ValueError):
         print("No path specified with --base")
         sys.exit(1)
 else:
@@ -41,7 +41,7 @@ if "--key" in sys.argv:
     try:
         index = sys.argv.index("--key")
         key = sys.argv[index + 1]
-    except IndexError, ValueError:
+    except (IndexError, ValueError):
         print("No key specified with --key")
         sys.exit(1)
 else:
