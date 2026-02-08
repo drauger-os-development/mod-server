@@ -54,7 +54,7 @@ if settings["create_hash_file"]:
         file.write(data.hexdigest())
 
 if settings["create_sig_file"]:
-    output = subproc.check_call(["gpg", "--detach-sign", "-u", settings["key"] , f"{top_level}/mods/index.json"]).decode()
+    output = subproc.check_call(["gpg", "--detach-sign", "-u", settings["key"] , f"{top_level}/mods/index.json"])
     output = subproc.check_output(["gpg", "--export", "-a", settings["key"]]).decode()
     with open(f"{top_level}/mods/public.key", "w") as file:
         file.write(output)
